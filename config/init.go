@@ -83,6 +83,13 @@ func InitWithIdentity(identity Identity) (*Config, error) {
 			DownloadSources: []string{},
 			Keep:            "",
 		},
+		// Default Bitswap settings (Enabled: true, ServerEnabled: true)
+		// We use Flag(0) to indicate the default value should be used.
+		// The logic in core/node/bitswap.go treats 0 as true.
+		Bitswap: BitswapConfig{
+			Enabled:       Flag(0),
+			ServerEnabled: Flag(0),
+		},
 	}
 
 	return conf, nil

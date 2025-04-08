@@ -13,6 +13,23 @@ import (
 	"github.com/ipfs/kubo/misc/fsutil"
 )
 
+// BitswapConfig defines the configuration options for Bitswap.
+type BitswapConfig struct {
+	// Enabled controls whether the Bitswap service (client and server) is active.
+	// Valid values:
+	// - "true" (or unset): Bitswap is enabled (default).
+	// - "false": Bitswap is disabled.
+	Enabled Flag `json:",omitempty"` // Default: true (0 means default)
+
+	// ServerEnabled controls whether the Bitswap server component is active.
+	// This requires Bitswap.Enabled to be true.
+	// If ServerEnabled is false, the node will not respond to incoming block requests.
+	// Valid values:
+	// - "true" (or unset): Bitswap server is enabled (default).
+	// - "false": Bitswap server is disabled.
+	ServerEnabled Flag `json:",omitempty"` // Default: true (0 means default)
+}
+
 // Config is used to load ipfs config files.
 type Config struct {
 	Identity  Identity  // local node's peer identity
@@ -40,6 +57,7 @@ type Config struct {
 	Pinning      Pinning
 	Import       Import
 	Version      Version
+	Bitswap      BitswapConfig // Bitswap specific configuration
 
 	Internal Internal // experimental/unstable options
 }
